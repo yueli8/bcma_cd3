@@ -47,34 +47,3 @@ deselect
 # iterate selectionname and name CA, print(f"{chain}:{resn}{resi}")
 iterate non-cd3-res-near-cd3-dimers and name CA, print(f"{chain}:{resn}{resi}")
 iterate cd3-dimers-res-near-non-cd3, and name CA, print(f"{chain}:{resn}{resi}")
-
-
-pymol
-
-# color cd3
-select cd3, pepseq EVQLVESGGGLVQPGGSLRLSCAASGFTFSTYAMNWVRQAPGKGLEWVGRIRSKYNNYATYYADSVKDRFTISRDDSKNSLYLQMNSLKTEDTAVYYCARHGNFGNSYVSWFAYWGQGTLVTVSSASTKGPSVFPLAPSSKSTSGGTAALGCLVKDYFPEPVTVSWNSGALTSGVHTFPAVLQSSGLYSLSSVVTVPSSSLGTQTYICNVNHKPSNTKVDKKVEPKSCDKT
-color red, cd3
-
-# color all bcma
-select bcma, pepseq QVQLVESGGGVVQAGGSLRLSCAASGRTFSTYAVGWFRQAPGKEREFVAANTWSGVYTYYADSVKGRFTISRDNSKNTVYLQMNSLRAEDTAVYYCAAVAPSSWYDKPDYWGQGTLVTVSS
-color green, bcma
-
-# color cde3
-select cd3e, pepseq MQSGTHWRVLGLCLLSVGVWGQDGNEEMGGITQTPYKVSISGTTVILTCPQYPGSEILWQHNDKNIGGDEDDKNIGSDEDHLSLKEFSELEQSGYYVCYPRGSKPEDANFYLYLRARVCENCMEMDVMSVATIVIVDICITGGLLLLVYYWSKNRKAKAKPVTRGAGAGGRQRGQNKERPPPPVPNPDYEPIRKGQRDLYSGLNQRRIPPR
-color blue, cd3e
-
-# color linkers
-select linkers, pepseq GGGGS
-color gray, linkers
-
-
-# interface selection and assignment, 5 angstrom
-select cd3e-res-near-cd3, byres (cd3e within 5 of cd3)
-select cd3-res-near-cd3e, byres (cd3 within 5 of cd3e)
-
-select cd3e-res-near-bcma, byres (cd3e within 5 of bcma)
-select bcma-res-near-cd3e, byres (bcma within 5 of cd3e)
-deselect
-
-
-
