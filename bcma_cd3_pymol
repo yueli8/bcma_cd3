@@ -49,7 +49,6 @@ iterate non-cd3-res-near-cd3-dimers and name CA, print(f"{chain}:{resn}{resi}")
 iterate cd3-dimers-res-near-non-cd3, and name CA, print(f"{chain}:{resn}{resi}")
 
 
-
 pymol
 
 
