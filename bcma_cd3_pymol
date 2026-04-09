@@ -1,0 +1,56 @@
+# Heavy chain BCMAx2 (CD3-BCMA-BCMA--but the two BCMA are different than previous BCMA)
+select hc_cd3, pepseq EVQLVESGGGLVQPGGSLRLSCAASGFTFSTYAMNWVRQAPGKGLEWVGRIRSKYNNYATYYADSVKDRFTISRDDSKNSLYLQMNSLKTEDTAVYYCARHGNFGNSYVSWFAYWGQGTLVTVSSASTKGPSVFPLAPSSKSTSGGTAALGCLVKDYFPEPVTVSWNSGALTSGVHTFPAVLQSSGLYSLSSVVTVPSSSLGTQTYICNVNHKPSNTKVDKKVEPKSCDKT
+color red, hc_cd3
+
+# near BCMA
+select hc_bcma_1, pepseq TQVQLVESGGGVVQAGGSLRLSCAASGRTFSTYAVGWFRQAPGKEREFVAANTWSGVYTYYADSVKGRFTISRDNSKNTVYLQMNSLRAEDTAVYYCAAVAPSSWYDKPDYWGQGTLVTVSS
+color green, hc_bcma_1
+
+# far BCMA
+select hc_bcma_2, pepseq QVQLVESGGGVVQAGGSLRLSCAASGRTFSTYAVGWFRQAPGKEREFVAANWSGVYTYYADSVKGRFTISRDNSKNTVYLQMNSLRAEDTAVYYCAAVAPSSWYDKPDYWGQGTLVTVSS
+color green, hc_bcma_2
+
+# Light chain for BCMAx2-CD3
+select lc, pepseq QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWVQQKPGQAPRGLIGGTNKCAPGVPARFSGSLLGDKAALTLLGAQPEDEAEYFCALWYSNLWVFGGGTKLTVLGQPKANPTVTLFPPSSEELQANKATLVCLISDFYPGAVTVAWKADGSPVKAGVETTKPSKQSNNKYAASSYLSLTPEQWKSHRSYSCQVTHEGSTVEKTVAPTECS
+color yellow, lc
+
+# CD3D
+select cd3d, pepseq MEHSTFLSGLVLATLLSQVSPFKIPIEELEDRVFVNCNTSITWVEGTVGTLLSDITRLDLGKRILDPRGIYRCNGTDIYKDKESTVQVHYRMCQSCVELDPATVAGIIVTDVIATLLLALGVFCFAGHETGRLSGAADTQALLRNDQVYQPLRDRDDAQYSHLGGNWARNK
+color palecyan, cd3d
+
+# CD3E
+select cd3e, pepseq MQSGTHWRVLGLCLLSVGVWGQDGNEEMGGITQTPYKVSISGTTVILTCPQYPGSEILWQHNDKNIGGDEDDKNIGSDEDHLSLKEFSELEQSGYYVCYPRGSKPEDANFYLYLRARVCENCMEMDVMSVATIVIVDICITGGLLLLVYYWSKNRKAKAKPVTRGAGAGGRQRGQNKERPPPVPNPDYEPIRKGQRDLYSGLNQRRI
+color blue, cd3e
+
+
+# CD3G
+select cd3g, pepseq MEQGKGLAVLILAIILLQGTLAQSIKGNHLVKVYDYQEDGSVLLTCDAEAKNITWFKDGKMIGFLTEDKKKWNLGSNAKDPRGMYQCKGSQNKSKPLQVYYRMCQNCIELNAATISGFLFAEIVSIFVLAVGVYFIAGQDGVRQSRASDKQTLLPNDQLYQPLKDREDDQYSHLQGNQLRRN
+color lightblue, cd3g
+
+# color linkers
+select linkers, pepseq GGGGS
+color gray, linkers
+
+# interface selection and assignment, 5 angstrom (there are none <= 5 angstrom)
+select cd3e-res-near-cd3, byres (cd3e within 5 of hc_cd3)
+select cd3-res-near-cd3e, byres (hc_cd3 within 5 of cd3e)
+
+select cd3e-res-near-bcma, byres (cd3e within 5 of (hc_bcma_1 or hc_bcma_2))
+select bcma-res-near-cd3e, byres ((hc_bcma_1 or hc_bcma_2) within 5 of cd3e)
+
+# note: can use more than two and can compare groups against groups 
+select non-cd3-res-near-cd3-dimers, byres ((hc_bcma_1 or hc_bcma_2 or lc) within 5 of (cd3e or cd3d or cd3g))
+select cd3-dimers-res-near-non-cd3, byres ((cd3e or cd3d or cd3g) within 5 of (hc_bcma_1 or hc_bcma_2 or lc))
+deselect
+
+# use the following, substituting selectionname for the selection from one of the above to print the chain and residue that overlaps
+# iterate selectionname and name CA, print(f"{chain}:{resn}{resi}")
+iterate non-cd3-res-near-cd3-dimers and name CA, print(f"{chain}:{resn}{resi}")
+iterate cd3-dimers-res-near-non-cd3, and name CA, print(f"{chain}:{resn}{resi}")
+
+
+
+pymol
+
+
+
