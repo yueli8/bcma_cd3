@@ -14,6 +14,12 @@ color blue, cd3e
 select linkers, pepseq GGGGS
 color gray, linkers
 
+#interface selection
+select overlap, bcma and byres(cd3 around 5)
+select overlap, cd3 and byres(bcma around 5)
+
+#右边A.    rename。左上角出现可以写新名字
+
 
 # interface selection and assignment, 5 angstrom
 select cd3e-res-near-cd3, byres (cd3e within 5 of cd3)
