@@ -1,0 +1,109 @@
+red（红）、green（绿）、blue（蓝）yellow（黄）、orange（橙）、purple（紫）magenta（品红）、cyan（青）、white（白）black（黑）、gray / grey（灰）、silver（银）pink（粉红）、salmon（橙红）、lime（亮绿）navy（深蓝）、teal（蓝绿）、olive（橄榄）
+
+# color anti-cd3
+select anti-cd3, pepseq EVQLVESGGGLVQPGGSLRLSCAASGFTFSTYAMNWVRQAPGKGLEWVGRIRSKYNNYATYYADSVKDRFTISRDDSKNSLYLQMNSLKTEDTAVYYCARHGNFGNSYVSWFAYWGQGTLVTVSSASTKGPSVFPLAPSSKSTSGGTAALGCLVKDYFPEPVTVSWNSGALTSGVHTFPAVLQSSGLYSLSSVVTVPSSSLGTQTYICNVNHKPSNTKVDKKVEPKSCDKT
+color red, anti-cd3
+
+# color all anti-bcma
+select anti-bcma, pepseq TQVQLVESGGGVVQAGGSLRLSCAASGRTFSTYAVGWFRQAPGKEREFVAANTWSGVYTYYADSVKGRFTISRDNSKNTVYLQMNSLRAEDTAVYYCAAVAPSSWYDKPDYWGQGTLVTVSSGGGGSQVQLVESGGGVVQAGGSLRLSCAASGRTFSTYAVGWFRQAPGKEREFVAANWSGVYTYYADSVKGRFTISRDNSKNTVYLQMNSLRAEDTAVYYCAAVAPSSWYDKPDYWGQGTLVTVS
+color green, anti-bcma
+
+# color all anti-bcma
+select anti-bcma, pepseq QVQLVESGGGVVQAGGSLRLSCAASGRTFSTYAVGWFRQAPGKEREFVAANTWSGVYTYYADSVKGRFTISRDNSKNTVYLQMNSLRAEDTAVYYCAAVAPSSWYDKPDYWGQGTLVTVSS
+color green, anti-bcma
+
+# color light-chain
+select light-chain, pepseq QTVVTQEPSLTVSPGGTVTLTCRSSTGAVTTSNYANWVQQKPGQAPRGLIGGTNKCAPGVPARFSGSLLGDKAALTLLGAQPEDEAEYFCALWYSNLWVFGGGTKLTVLGQPKANPTVTLFPPSSEELQANKATLVCLISDFYPGAVTVAWKADGSPVKAGVETTKPSKQSNNKYAASSYLSLTPEQWKSHRSYSCQVTHEGSTVEKTVAPTECS
+color yellow, light-chain
+
+# color linkers
+select linkers, pepseq GGGGS
+color gray, linkers
+
+# color cd3e
+select cd3e, pepseq MQSGTHWRVLGLCLLSVGVWGQDGNEEMGGITQTPYKVSISGTTVILTCPQYPGSEILWQHNDKNIGGDEDDKNIGSDEDHLSLKEFSELEQSGYYVCYPRGSKPEDANFYLYLRARVCENCMEMDVMSVATIVIVDICITGGLLLLVYYWSKNRKAKAKPVTRGAGAGGRQRGQNKERPPPVPNPDYEPIRKGQRDLYSGLNQRRI
+#( PPP 原来数据多了一个P)
+color blue, cd3e
+
+# color cd3g
+select cd3g, pepseq MEQGKGLAVLILAIILLQGTLAQSIKGNHLVKVYDYQEDGSVLLTCDAEAKNITWFKDGKMIGFLTEDKKKWNLGSNAKDPRGMYQCKGSQNKSKPLQVYYRMCQNCIELNAATISGFLFAEIVSIFVLAVGVYFIAGQDGVRQSRASDKQTLLPNDQLYQPLKDREDDQYSHLQGNQLRRN
+color cyan, cd3g
+
+# color cd3d
+select cd3d, pepseq MEHSTFLSGLVLATLLSQVSPFKIPIEELEDRVFVNCNTSITWVEGTVGTLLSDITRLDLGKRILDPRGIYRCNGTDIYKDKESTVQVHYRMCQSCVELDPATVAGIIVTDVIATLLLALGVFCFAGHETGRLSGAADTQALLRNDQVYQPLRDRDDAQYSHLGGNWARNK
+color purple, cd3d
+
+#change cd3d, cd3g, cd3e as the same as cd3e
+#color cd3d as cd3
+select cd3, pepseq MEHSTFLSGLVLATLLSQVSPFKIPIEELEDRVFVNCNTSITWVEGTVGTLLSDITRLDLGKRILDPRGIYRCNGTDIYKDKESTVQVHYRMCQSCVELDPATVAGIIVTDVIATLLLALGVFCFAGHETGRLSGAADTQALLRNDQVYQPLRDRDDAQYSHLGGNWARNK
+color blue, cd3
+
+#color cd3g as cd3
+select cd3, pepseq MEQGKGLAVLILAIILLQGTLAQSIKGNHLVKVYDYQEDGSVLLTCDAEAKNITWFKDGKMIGFLTEDKKKWNLGSNAKDPRGMYQCKGSQNKSKPLQVYYRMCQNCIELNAATISGFLFAEIVSIFVLAVGVYFIAGQDGVRQSRASDKQTLLPNDQLYQPLKDREDDQYSHLQGNQLRRN
+color blue, cd3
+
+#interface selection
+select overlap, cd3 and byres (anti-cd3 around 5)
+stored.residues = []
+iterate cd3-res-near-anti-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+select overlap, anti-cd3 and byres (cd3 around 5)
+stored.residues = []
+iterate anti-cd3-res-near-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+select overlap, cd3 and byres (anti-bcma around 5)
+stored.residues = []
+iterate cd3-res-near-anti-bcma and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+select overlap, anti-bcma and byres (cd3 around 5)
+stored.residues = []
+iterate anti-bcma-res-near-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+select overlap, anti-cd3 and byres (anti-bcma around 5)
+stored.residues = []
+iterate anti-cd3-res-near-anti-bcma and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+select overlap, anti-bcma and byres (anti-cd3 around 5)
+stored.residues = []
+iterate anti-bcma-res-near-anti-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+select overlap, light-chain and byres (anti-cd3 around 5)
+stored.residues = []
+iterate light-chain-res-near-anti-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+select overlap, anti-cd3 and byres (light-chain around 5)
+stored.residues = []
+iterate anti-cd3-res-near-light-chain and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+select overlap, light-chain and byres (anti-bcma around 5)
+stored.residues = []
+iterate light-chain-res-near-anti-bcma and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+#select overlap, anti-bcma and byres (light-chain around 5)
+stored.residues = []
+iterate anti-bcma-res-near-light-chain and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+#select overlap, light-chain and byres (cd3 around 5)
+stored.residues = []
+iterate light-chain-res-near-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+#select overlap, cd3 and byres (light-chain around 5)
+stored.residues = []
+iterate cd3-res-near-light-chain and name CA, stored.residues.append(f"{resn}{resi}") 
+print(stored.residues)
+
+
+
+
+
