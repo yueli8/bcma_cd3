@@ -47,22 +47,22 @@ show everything, all
 show cartoon, all
 
 #interface selection
-select overlap, cd3 and byres (anti-cd3 around 5)
+select overlap, cd3_complex and byres (anti-cd3 around 5)
 stored.residues = []
 iterate cd3-res-near-anti-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
 print(stored.residues)
 
-select overlap, anti-cd3 and byres (cd3 around 5)
+select overlap, anti-cd3 and byres (cd3_complex around 5)
 stored.residues = []
 iterate anti-cd3-res-near-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
 print(stored.residues)
 
-select overlap, cd3 and byres (anti-bcma around 5)
+select overlap, cd3_complex and byres (anti-bcma around 5)
 stored.residues = []
 iterate cd3-res-near-anti-bcma and name CA, stored.residues.append(f"{resn}{resi}") 
 print(stored.residues)
 
-select overlap, anti-bcma and byres (cd3 around 5)
+select overlap, anti-bcma and byres (cd3_complex around 5)
 stored.residues = []
 iterate anti-bcma-res-near-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
 print(stored.residues)
@@ -92,22 +92,19 @@ stored.residues = []
 iterate light-chain-res-near-anti-bcma and name CA, stored.residues.append(f"{resn}{resi}") 
 print(stored.residues)
 
-#select overlap, anti-bcma and byres (light-chain around 5)
+select overlap, anti-bcma and byres (light-chain around 5)
 stored.residues = []
 iterate anti-bcma-res-near-light-chain and name CA, stored.residues.append(f"{resn}{resi}") 
 print(stored.residues)
 
-#select overlap, light-chain and byres (cd3 around 5)
+select overlap, light-chain and byres (cd3_complex around 5)
 stored.residues = []
 iterate light-chain-res-near-cd3 and name CA, stored.residues.append(f"{resn}{resi}") 
 print(stored.residues)
 
-#select overlap, cd3 and byres (light-chain around 5)
+select overlap, cd3_complex and byres (light-chain around 5)
 stored.residues = []
 iterate cd3-res-near-light-chain and name CA, stored.residues.append(f"{resn}{resi}") 
 print(stored.residues)
-
-
-
 
 
