@@ -43,6 +43,9 @@ alter cd3_complex, chain = "cd3"
 # 3. 刷新生效（必须执行！）
 sort
 
+show everything, all
+show cartoon, all
+
 #interface selection
 select overlap, cd3 and byres (anti-cd3 around 5)
 stored.residues = []
