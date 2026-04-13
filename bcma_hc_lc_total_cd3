@@ -33,7 +33,15 @@ color cyan, cd3g
 select cd3d, pepseq MEHSTFLSGLVLATLLSQVSPFKIPIEELEDRVFVNCNTSITWVEGTVGTLLSDITRLDLGKRILDPRGIYRCNGTDIYKDKESTVQVHYRMCQSCVELDPATVAGIIVTDVIATLLLALGVFCFAGHETGRLSGAADTQALLRNDQVYQPLRDRDDAQYSHLGGNWARNK
 color purple, cd3d
 
+# 1. 合并 cd3d、cd3e、cd3g 为一个新对象 cd3_complex
+create cd3_complex, (cd3d or cd3e or cd3g)
 
+# 2. （可选）为了严谨，将合并后的所有链统一重命名为 cd3
+# 解决合并后链名混杂的问题，确保整体统一性
+alter cd3_complex, chain = "cd3"
+
+# 3. 刷新生效（必须执行！）
+sort
 
 #interface selection
 select overlap, cd3 and byres (anti-cd3 around 5)
